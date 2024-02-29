@@ -1,0 +1,1 @@
+const userTests = require('@gorvok/validation-middlewares/user.test')

@@ -1,0 +1,82 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "PRW - Backend API",
+    "description": "A very simple backend API that takes only 4 POST fields, validates them, then returns a response.",
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:8080",
+      "description": "Local backend API server"
+    }
+  ],
+  "paths": {
+    "/signup": {
+      "post": {
+        "summary": "Accepts a user signup",
+        "description": "Takes the user details submitted and returns a valid/invalid response depending on the validation middlewares in the stack.",
+        "responses": {
+          "200": {
+            "description": "User was successfully signed up",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    },
+                    "user": {
+                      "type": "object",
+                      "properties": {
+                        "email": {
+                          "type": "string"
+                        },
+                        "phone": {
+                          "type": "string"
+                        },
+                        "birthday": {
+                          "type": "string"
+                        },
+                        "password": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  },
+                  "example": {
+                    "message": {
+                      "email": "johndoe@example.com",
+                      "phone": "XXX-XXX-XXXX",
+                      "birthday": "mm/dd/yyyy",
+                      "password": "●●●●●●●●●●●"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "One or more of the POST fields were empty, or could not be validated",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "msg": {
+                      "type": "string"
+                    }
+                  },
+                  "example": {
+                    "msg": "A valid [field name] was not provided."
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
